@@ -7,14 +7,19 @@ public class BlackJackGameManager {
 
 	public void startGame() {
 		initGame();
+		processGame();
 	}
 
 	private void initGame() {
 		deck.initCardList();
-		deck.logCardList();
 	}
 
 	private void processGame() {
+		boolean isEnd = false;
 
+		if (isEnd) {
+			// restart
+			startGame();
+		}
 	}
 }

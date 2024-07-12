@@ -15,6 +15,7 @@ public class Deck {
 	private final List<Card> cardList = new ArrayList<>();
 
 	public void initCardList() {
+		// TODO Recycle Card List
 		for (CardType cardType : CardType.values()) {
 			for(int i = 1 ; i < 13 ; i++) {
 				cardList.add(new Card(cardType, i));
@@ -22,9 +23,12 @@ public class Deck {
 		}
 	}
 
-	public void logCardList() {
-		for (Card card : cardList) {
-			logger.log(Level.INFO, card.toString());
-		}
+	public void shuffleCardList() {
+
+	}
+
+	public Card getCard() {
+		// array copy
+		return cardList.removeLast();
 	}
 }
