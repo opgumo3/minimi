@@ -8,12 +8,4 @@ public record Card(String color, int value, String pattern) {
 		this(cardType.name(), value, cardType.getSymbol());
 	}
 
-	@Override
-	public String toString() {
-		return "Card {" +
-			"color='" + color + '\'' +
-			", value=" + value +
-			", pattern='" + pattern + '\'' +
-			'}';
-	}
 }

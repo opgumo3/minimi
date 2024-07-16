@@ -27,4 +27,10 @@ public class Dealer {
   public void getCard(Deck deck) {
     cardList.add(deck.getCard());
   }
+
+  public void showCard() {
+    for (Card card : cardList) {
+      System.out.println(card.toString());
+    }
+  }
 }
