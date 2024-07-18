@@ -1,8 +1,12 @@
 package org.minimi.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.random.RandomGenerator;
+import java.util.stream.Collector;
+
 import lombok.Getter;
 import org.minimi.constant.CardType;
 
@@ -22,12 +26,11 @@ public class Deck {
   }
 
   public void shuffleCardList() {
-
+    Collections.shuffle(cardList);
   }
 
   public Card getCard() {
     // array copy
-    // TODO cannot find symbol
     return cardList.removeLast();
   }
 }

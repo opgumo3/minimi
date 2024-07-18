@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.minimi.domain.BlackJackPlayable;
 import org.minimi.domain.Dealer;
 import org.minimi.domain.Deck;
 import org.minimi.domain.Player;
 
 public class BlackJackGameManager {
-
+  private final int BLACK_JACK_NUMBER = 21;
   private final Deck deck = new Deck();
   private List<Player> players = new ArrayList();
 
@@ -22,6 +24,7 @@ public class BlackJackGameManager {
   private void initGame() {
     // initiate card deck
     deck.initCardList();
+    deck.shuffleCardList();
 
     // setting players
     this.setPlayer();
@@ -55,12 +58,20 @@ public class BlackJackGameManager {
 
     players.forEach(player -> {
       player.initCard(deck);
-      player.showCards();
+      player.showCard();
     });
 
     if (isEnd) {
       // restart
       startGame();
     }
+  }
+
+  private boolean checkBlackJack(BlackJackPlayable blackJackPlayer) {
+    return blackJackPlayer.getCardSum() == BLACK_JACK_NUMBER;
+  }
+
+  private void choose() {
+    // 더블다운/스플릿/스탠드/히트
   }
 }

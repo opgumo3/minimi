@@ -3,7 +3,7 @@ package org.minimi.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dealer {
+public class Dealer implements BlackJackPlayable{
 
   private static Dealer dealer;
   private List<Card> cardList = new ArrayList<>();
@@ -19,18 +19,31 @@ public class Dealer {
   private Dealer() {
   }
 
+  @Override
   public void initCard(Deck deck) {
     getCard(deck);
     getCard(deck);
   }
 
+  @Override
   public void getCard(Deck deck) {
     cardList.add(deck.getCard());
   }
 
+  @Override
   public void showCard() {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append(" >>>>> DEALER <<<<< \n");
     for (Card card : cardList) {
-      System.out.println(card.toString());
+      sb.append(card.value() + "(" + card.pattern() + ", " + card.color() + ")\n");
     }
+    System.out.println(sb);
+  }
+
+  @Override
+  public int getCardSum() {
+    // TODO test
+    return cardList.stream().mapToInt(Card::value).sum();
   }
 }

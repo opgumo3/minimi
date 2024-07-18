@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class Player {
+public class Player implements BlackJackPlayable {
 
   private final String name;
   private boolean isAutoPlay = false;
@@ -20,22 +20,31 @@ public class Player {
 
   }
 
+  @Override
   public void initCard(Deck deck) {
     getCard(deck);
     getCard(deck);
   }
 
+  @Override
   public void getCard(Deck deck) {
     cardList.add(deck.getCard());
   }
 
-  public void showCards() {
+  @Override
+  public void showCard() {
     StringBuilder sb = new StringBuilder();
 
-    sb.append(" >>>>> " + this.name + " <<<<< ");
+    sb.append(" >>>>> " + this.name + " <<<<< \n");
     for (Card card : cardList) {
       sb.append(card.value() + "(" + card.pattern() + ", " + card.color() + ")\n");
     }
-    System.out.println(sb.toString());
+    System.out.println(sb);
+  }
+
+  @Override
+  public int getCardSum() {
+    // TODO test
+    return cardList.stream().mapToInt(Card::value).sum();
   }
 }
