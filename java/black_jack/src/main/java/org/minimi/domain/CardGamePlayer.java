@@ -15,7 +15,7 @@ public abstract class CardGamePlayer {
     }
 
     public void getCard(Deck deck) {
-        System.out.printf("%s : 카드를 뽑습니다.", name);
+        System.out.printf("%s : 카드를 뽑습니다. \n", name);
         cardList.add(deck.getCard());
     }
 }

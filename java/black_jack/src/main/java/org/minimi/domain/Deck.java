@@ -18,6 +18,7 @@ public class Deck {
 
   public void initCardList() {
     // TODO Recycle Card List
+    // FIXME 블랙잭 카드 value
     for (CardType cardType : CardType.values()) {
       for (int i = 1; i < 13; i++) {
         cardList.add(new Card(cardType, i));

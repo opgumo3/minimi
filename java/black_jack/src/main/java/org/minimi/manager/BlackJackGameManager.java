@@ -57,6 +57,7 @@ public class BlackJackGameManager {
 
     this.showPlayerCard(dealer);
 
+    // 오버플로우도 확인해야함.
     if (dealer.isBlackJack()) {
       System.out.print("DELAER 우승");
       return;
