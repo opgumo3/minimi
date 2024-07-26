@@ -1,20 +1,17 @@
 package org.minimi.manager;
 
+import org.minimi.domain.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.minimi.domain.BlackJackPlayable;
-import org.minimi.domain.Dealer;
-import org.minimi.domain.Deck;
-import org.minimi.domain.Player;
-
 public class BlackJackGameManager {
   private final int BLACK_JACK_NUMBER = 21;
   private final Deck deck = new Deck();
-  private List<Player> players = new ArrayList();
+  private final List<Player> players = new ArrayList<>();
 
   public void startGame() {
     initGame();
@@ -27,15 +24,14 @@ public class BlackJackGameManager {
     deck.shuffleCardList();
 
     // setting players
-    this.setPlayer();
     this.setPlayers();
   }
 
-  private void setPlayer() {
-    players.add(new Player("USER"));
-  }
-
   private void setPlayers() {
+    // player
+    players.add(new Player("USER", false));
+
+    // cpu player
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     System.out.println("몇 명의 사용자를 추가하시겠습니까? (최대 4명)");
     try {
@@ -50,15 +46,16 @@ public class BlackJackGameManager {
   }
 
   private void processGame() {
+    // 모든 플레이어가 스탠드를 하면 끝난다.
     boolean isEnd = false;
 
-    Dealer dealer = Dealer.getInstance();
+    Dealer dealer = new Dealer();
     dealer.initCard(deck);
-    dealer.showCard();
+    this.showPlayerCard(dealer);
 
     players.forEach(player -> {
       player.initCard(deck);
-      player.showCard();
+      this.showPlayerCard(player);
     });
 
     if (isEnd) {
@@ -73,5 +70,15 @@ public class BlackJackGameManager {
 
   private void choose() {
     // 더블다운/스플릿/스탠드/히트
+  }
+
+  private void showPlayerCard(CardGamePlayer gamePlayer) {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append(" >>>>> " + gamePlayer.getName() + " <<<<< \n");
+    for (Card card : gamePlayer.getCardList()) {
+      sb.append(card.value() + "(" + card.pattern() + ", " + card.color() + ")\n");
+    }
+    System.out.println(sb);
   }
 }

@@ -1,18 +1,11 @@
 package org.minimi.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-public class Player implements BlackJackPlayable {
-
-  private final String name;
+public class Player extends CardGamePlayer implements BlackJackPlayable {
+  private boolean isStand = false;
   private boolean isAutoPlay = false;
-  private List<Card> cardList = new ArrayList<>();
 
   public Player(String name, boolean isAutoPlay) {
-    this.name = name;
+    super(name);
     this.isAutoPlay = isAutoPlay;
   }
 
@@ -27,24 +20,7 @@ public class Player implements BlackJackPlayable {
   }
 
   @Override
-  public void getCard(Deck deck) {
-    cardList.add(deck.getCard());
-  }
-
-  @Override
-  public void showCard() {
-    StringBuilder sb = new StringBuilder();
-
-    sb.append(" >>>>> " + this.name + " <<<<< \n");
-    for (Card card : cardList) {
-      sb.append(card.value() + "(" + card.pattern() + ", " + card.color() + ")\n");
-    }
-    System.out.println(sb);
-  }
-
-  @Override
   public int getCardSum() {
-    // TODO test
-    return cardList.stream().mapToInt(Card::value).sum();
+    return getCardList().stream().mapToInt(Card::value).sum();
   }
 }
