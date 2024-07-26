@@ -14,12 +14,8 @@ public abstract class CardGamePlayer {
         this.name = name;
     }
 
-    public void initCard(Deck deck) {
-        getCard(deck);
-        getCard(deck);
-    }
-
     public void getCard(Deck deck) {
+        System.out.printf("%s : 카드를 뽑습니다.", name);
         cardList.add(deck.getCard());
     }
 }

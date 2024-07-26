@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlackJackGameManager {
-  private final int BLACK_JACK_NUMBER = 21;
   private final Deck deck = new Deck();
   private final List<Player> players = new ArrayList<>();
 
@@ -46,30 +45,31 @@ public class BlackJackGameManager {
   }
 
   private void processGame() {
-    // 모든 플레이어가 스탠드를 하면 끝난다.
-    boolean isEnd = false;
+    // 모든 플레이어가 스탠드를 하면 딜러턴.
 
+    // Delaer와 Player를 따로따로 처리해야하는지.
     Dealer dealer = new Dealer();
     dealer.initCard(deck);
-    this.showPlayerCard(dealer);
 
     players.forEach(player -> {
       player.initCard(deck);
-      this.showPlayerCard(player);
     });
 
-    if (isEnd) {
-      // restart
-      startGame();
+    this.showPlayerCard(dealer);
+
+    if (dealer.isBlackJack()) {
+      System.out.print("DELAER 우승");
+      return;
     }
+
+    players.forEach(this::showPlayerCard);
   }
 
-  private boolean checkBlackJack(BlackJackPlayable blackJackPlayer) {
-    return blackJackPlayer.getCardSum() == BLACK_JACK_NUMBER;
-  }
-
-  private void choose() {
-    // 더블다운/스플릿/스탠드/히트
+  private void choose(BlackJackPlayable blackJackPlayer) {
+    boolean continuable = !blackJackPlayer.isBlackJack();
+    while(continuable) {
+      // 더블다운/스플릿/스탠드/히트
+    }
   }
 
   private void showPlayerCard(CardGamePlayer gamePlayer) {
